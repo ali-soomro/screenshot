@@ -20,6 +20,7 @@
 #include "screenshotview.h"
 
 #include <QClipboard>
+#include <QFile>
 #include <QEventLoop>
 #include <QTimer>
 
@@ -38,7 +39,10 @@ ScreenshotView::ScreenshotView(QQuickView *parent)
 {
     rootContext()->setContextProperty("view", this);
 
-    setFlags(Qt::FramelessWindowHint | Qt::X11BypassWindowManagerHint);
+    Qt::WindowFlags flags = Qt::FramelessWindowHint;
+    if (qGuiApp->platformName() == QLatin1String("xcb"))
+        flags |= Qt::X11BypassWindowManagerHint;
+    setFlags(flags);
     setScreen(qGuiApp->primaryScreen());
     setResizeMode(QQuickView::SizeRootObjectToView);
     setSource(QUrl("qrc:/qml/main.qml"));

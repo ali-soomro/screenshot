@@ -21,6 +21,7 @@
 #include <QDBusConnection>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
+#include <QFile>
 #include <QTranslator>
 #include <QLocale>
 
